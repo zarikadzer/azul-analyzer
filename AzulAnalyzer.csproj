@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>netcoreapp3.1</TargetFramework>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Remove="AzulAnalyzer.*\**" />
+		<EmbeddedResource Remove="AzulAnalyzer.*\**" />
+		<None Remove="AzulAnalyzer.*\**" />
+	</ItemGroup>
+	<ItemGroup>
+		<Compile Remove="README.md" />
+		<EmbeddedResource Remove="README.md" />
+		<None Remove="README.md" />
+	</ItemGroup>
+	<ItemGroup>
+		<Compile Remove=".gitignore" />
+		<EmbeddedResource Remove=".gitignore" />
+		<None Remove=".gitignore" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="AzulAnalyzer.Logic\AzulAnalyzer.Logic.csproj" />
+	</ItemGroup>
+</Project>
