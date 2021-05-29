@@ -10,7 +10,7 @@ namespace AzulAnalyzer
 		public TakeGem(GameContext context) : base(context) {
 		}
 
-		protected override void Action(Player player) {
+		protected override void Action() {
 			///
 			///TODO: Implement logic of taking the best storage.
 			///
@@ -26,7 +26,7 @@ namespace AzulAnalyzer
 			var gemsToTake = gems.GetMaxGroup();
 
 			storage.Take(gemsToTake.gem);
-			player.AddToSource(gemsToTake.gem, gemsToTake.count);
+			Game.CurrentPlayer.AddToSource(gemsToTake.gem, gemsToTake.count);
 		}
 	}
 }

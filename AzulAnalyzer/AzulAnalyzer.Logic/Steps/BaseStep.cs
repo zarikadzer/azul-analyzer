@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace AzulAnalyzer
@@ -11,21 +12,27 @@ namespace AzulAnalyzer
 		}
 
 		protected GameContext Game;
-		protected BaseStep Next { get; set; }
+		protected List<BaseStep> NextSteps { get; set; } = new List<BaseStep>();
 
-		public BaseStep SetNext(BaseStep next) {
-			Next = next;
+		public BaseStep AddNext(params BaseStep[] nextSteps) {
+			NextSteps.AddRange(nextSteps);
 			return this;
 		}
 
-		protected abstract void Action(Player player);
+		protected abstract void Action();
 
-		public virtual bool CanPlay(Player player) => true;
+		public virtual bool CanPlay() => true;
 
-		public virtual void Play(Player player) {
-			Action(player);
-			if (Next != default && !Game.IsGameEnded && Next.CanPlay(player)) {
-				Next.Play(player);
+		public virtual void Play() {
+			Action();
+			if (NextSteps != default && !Game.IsGameEnded) {
+				var next = NextSteps.FirstOrDefault(x => x.CanPlay());
+				if (next == default) {
+					// THE END
+					Game.IsGameEnded = true;
+					return;
+				}
+				next.Play();
 			}
 		}
 	}

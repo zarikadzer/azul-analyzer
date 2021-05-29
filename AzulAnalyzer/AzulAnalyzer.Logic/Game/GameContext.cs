@@ -11,6 +11,7 @@ namespace AzulAnalyzer
 
 		public List<Factory> Factories = new List<Factory>();
 		public List<Player> Players = new List<Player>();
+		public Player CurrentPlayer { get; set; }
 		public Heap Heap { get; set; }
 		public Trash Trash { get; set; }
 		public Bag Bag { get; set; }

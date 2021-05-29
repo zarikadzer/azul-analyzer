@@ -16,20 +16,24 @@ namespace AzulAnalyzer
 		public GameContext Context{ get; set; }
 
 		private void InitSteps(GameContext context) {
-			StepsChain = new CheckAndFillFactories(context)
-				.SetNext(new TakeGem(context));
+			var fillFactories = new FillFactories(context);
+			var takeGem = new TakeGem(context);
+			var switchPlayer = new SwitchPlayer(context);
+
+			fillFactories.AddNext(takeGem);
+			takeGem.AddNext(switchPlayer);
+			switchPlayer.AddNext(fillFactories, takeGem);
+
+			StepsChain =
+				new DefineFirstPlayer(context)
+					.AddNext(fillFactories, takeGem);
 			///
 			/// TODO: Implement and attach other steps.
-			/// 
+			///
 		}
 
 		public void Play() {
-			var player = Context.Players.First();
-			StepsChain.Play(player);
-			while (!Context.IsGameEnded) {
-				StepsChain.Play(player = player.GetNextPlayer());
-			}
-			
+			StepsChain.Play();
 		}
 	}
 }
