@@ -15,9 +15,7 @@ namespace AzulAnalyzer
 				Game.IsGameEnded = true;
 				return false;
 			}
-			return Game.Factories.All(x => x.IsEmpty())
-				&& Game.Heap.IsEmpty()
-				&& (!Game.Trash.IsEmpty() || !Game.Bag.IsEmpty());
+			return Game.Factories.All(x => x.IsEmpty()) && Game.Heap.IsEmpty();
 		}
 
 		protected override void Action() {

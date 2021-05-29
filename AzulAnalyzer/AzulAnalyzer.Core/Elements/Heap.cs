@@ -7,23 +7,25 @@ namespace AzulAnalyzer
 {
 	public class Heap : IStorage
 	{
-		private List<Gem> Gems;
+		private List<Tile> Tiles;
 
 		public Heap() {
 			Reset();
 		}
 
 		public void Reset() {
-			Gems = new List<Gem>();
+			Tiles = new List<Tile> {
+				Tile.FirstPlayer
+			};
 		}
 
-		public bool IsEmpty() => Gems.Count == 0;
-		public void Add(List<Gem> gems) => Gems.AddRange(gems);
-		public Dictionary<Gem, int> GetGems() => Gems.ByColor();
+		public bool IsEmpty() => Tiles.Count(x => x != Tile.FirstPlayer) == 0;
+		public void Add(List<Tile> tiles) => Tiles.AddRange(tiles);
+		public Dictionary<Tile, int> GetTiles() => Tiles.ByColor();
 
 		/// <summary>
-		/// Returns how much gems been taken.
+		/// Returns how much tiles been taken.
 		/// </summary>
-		public int Take(Gem color) => Gems.RemoveAll(x => x == color);
+		public int Take(Tile color) => Tiles.RemoveAll(x => x == color);
 	}
 }

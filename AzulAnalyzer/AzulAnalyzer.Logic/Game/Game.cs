@@ -17,7 +17,7 @@ namespace AzulAnalyzer
 
 		private void InitSteps(GameContext context) {
 			var fillFactories = new FillFactories(context);
-			var takeGem = new TakeGem(context);
+			var takeGem = new TakeTile(context);
 			var switchPlayer = new SwitchPlayer(context);
 
 			fillFactories.AddNext(takeGem);

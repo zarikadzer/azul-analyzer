@@ -7,19 +7,19 @@ namespace AzulAnalyzer
 {
 	public class Trash
 	{
-		private List<Gem> Gems = new List<Gem>();
+		private List<Tile> Tiles = new List<Tile>();
 
-		public List<Gem> Take() {
-			var result = new List<Gem>();
-			if (Gems.Count > 0) {
-				result = Gems.OrderBy(x => new Random().Next()).ToList();
+		public List<Tile> Take() {
+			var result = new List<Tile>();
+			if (Tiles.Count > 0) {
+				result = Tiles.OrderBy(x => new Random().Next()).ToList();
 			}
-			Gems = new List<Gem>();
+			Tiles = new List<Tile>();
 			return result;
 		}
 
-		public bool IsEmpty() => Gems.Count == 0;
-		public void Add(List<Gem> gems) => Gems.AddRange(gems);
-		public void Reset() => Gems = new List<Gem>();
+		public bool IsEmpty() => Tiles.Count == 0;
+		public void Add(List<Tile> tiles) => Tiles.AddRange(tiles);
+		public void Reset() => Tiles = new List<Tile>();
 	}
 }

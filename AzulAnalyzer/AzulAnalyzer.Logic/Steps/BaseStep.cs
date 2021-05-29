@@ -26,7 +26,13 @@ namespace AzulAnalyzer
 		public virtual void Play() {
 			Action();
 			if (NextSteps != default && !Game.IsGameEnded) {
-				var next = NextSteps.FirstOrDefault(x => x.CanPlay());
+				var next = default(BaseStep);
+				foreach (var step in NextSteps) {
+					if (step.CanPlay()) {
+						next = step;
+						break;
+					}
+				}
 				if (next == default) {
 					// THE END
 					Game.IsGameEnded = true;

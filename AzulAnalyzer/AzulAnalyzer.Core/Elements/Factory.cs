@@ -7,7 +7,7 @@ namespace AzulAnalyzer
 {
 	public class Factory : IStorage
 	{
-		private List<Gem> Gems { get; set; } = new List<Gem>();
+		private List<Tile> Gems { get; set; } = new List<Tile>();
 		private Heap Heap { get; set; }
 		private Bag Bag { get; set; }
 
@@ -17,17 +17,17 @@ namespace AzulAnalyzer
 		}
 
 		public bool IsEmpty() => Gems.Count == 0;
-		public Dictionary<Gem, int> GetGems() => Gems.ByColor();
+		public Dictionary<Tile, int> GetTiles() => Gems.ByColor();
 
 		/// <summary>
 		/// Returns how much gems been taken.
 		/// </summary>
-		public int Take(Gem color) {
+		public int Take(Tile color) {
 			var result = Gems.Where(x => x == color).Count();
 			if (result > 0) {
 				var restGems = Gems.Where(x => x != color).ToList();
 				Heap.Add(restGems);
-				Gems = new List<Gem>();
+				Gems = new List<Tile>();
 			}
 			return result;
 		}

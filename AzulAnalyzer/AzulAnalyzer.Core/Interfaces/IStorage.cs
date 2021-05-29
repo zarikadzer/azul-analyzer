@@ -4,8 +4,8 @@ namespace AzulAnalyzer
 {
 	public interface IStorage
 	{
-		int Take(Gem gem);
+		int Take(Tile gem);
 		bool IsEmpty();
-		Dictionary<Gem, int> GetGems();
+		Dictionary<Tile, int> GetTiles();
 	}
 }

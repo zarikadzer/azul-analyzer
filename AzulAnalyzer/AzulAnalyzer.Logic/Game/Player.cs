@@ -16,14 +16,18 @@ namespace AzulAnalyzer
 			GameContext = gameContext;
 		}
 
-		internal void AddToSource(Gem gem, int gemsNumber) {
-			var available = Board.GetAvailableSources().Where(x=>x.color == gem || x.color == Gem.None).ToList();
+		public void AddToFloor(Tile tile, int tilesNumber = 1) {
+			Board.AddToFloor(tile, tilesNumber);
+		}
+
+		public void AddToPattern(Tile tile, int tilesNumber) {
+			var available = Board.GetAvailablePatterns().Where(x=>x.color == tile || x.color == Tile.None).ToList();
 			if (available.Count == 0) {
-				Board.AddToFloor(gem, gemsNumber);
+				Board.AddToFloor(tile, tilesNumber);
 				return;
 			}
-			var min = available.Aggregate((currMin, x) => Math.Abs(x.count - gemsNumber) < Math.Abs(currMin.count - gemsNumber) ? x : currMin);
-			Board.AddToRow(min.row, gem, gemsNumber);
+			var min = available.Aggregate((currMin, x) => Math.Abs(x.count - tilesNumber) < Math.Abs(currMin.count - tilesNumber) ? x : currMin);
+			Board.AddToPattern(min.row, tile, tilesNumber);
 		}
 
 		public Player GetNextPlayer() {

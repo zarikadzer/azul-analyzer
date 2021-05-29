@@ -7,49 +7,50 @@ namespace AzulAnalyzer
 {
 	public class Board
 	{
-		public List<Gem> Floor { get; set; } = new List<Gem>();
+		public List<Tile> Floor { get; set; } = new List<Tile>();
 
-		public List<Gem[]> Source { get; set; } = new List<Gem[]> {
-			new Gem[1] { Gem.None },
-			new Gem[2] { Gem.None, Gem.None },
-			new Gem[3] { Gem.None, Gem.None, Gem.None },
-			new Gem[4] { Gem.None, Gem.None, Gem.None, Gem.None },
-			new Gem[5] { Gem.None, Gem.None, Gem.None, Gem.None, Gem.None }
+		public List<Tile[]> Pattern { get; set; } = new List<Tile[]> {
+			new Tile[1] { Tile.None },
+			new Tile[2] { Tile.None, Tile.None },
+			new Tile[3] { Tile.None, Tile.None, Tile.None },
+			new Tile[4] { Tile.None, Tile.None, Tile.None, Tile.None },
+			new Tile[5] { Tile.None, Tile.None, Tile.None, Tile.None, Tile.None }
 		};
 
-		public List<Gem[]> Target { get; set; } = new List<Gem[]> {
-			new Gem[5] { Gem.None, Gem.None, Gem.None, Gem.None, Gem.None },
-			new Gem[5] { Gem.None, Gem.None, Gem.None, Gem.None, Gem.None },
-			new Gem[5] { Gem.None, Gem.None, Gem.None, Gem.None, Gem.None },
-			new Gem[5] { Gem.None, Gem.None, Gem.None, Gem.None, Gem.None },
-			new Gem[5] { Gem.None, Gem.None, Gem.None, Gem.None, Gem.None }
+		public List<Tile[]> Wall { get; set; } = new List<Tile[]> {
+			new Tile[5] { Tile.None, Tile.None, Tile.None, Tile.None, Tile.None },
+			new Tile[5] { Tile.None, Tile.None, Tile.None, Tile.None, Tile.None },
+			new Tile[5] { Tile.None, Tile.None, Tile.None, Tile.None, Tile.None },
+			new Tile[5] { Tile.None, Tile.None, Tile.None, Tile.None, Tile.None },
+			new Tile[5] { Tile.None, Tile.None, Tile.None, Tile.None, Tile.None }
 		};
 
-		public void AddToRow(int row, Gem gem, int gemsNumber) {
-			var totalAvailable = Source[row].Count(x => x == Gem.None);
-			var totalFloor = gemsNumber - totalAvailable;
+		public void AddToPattern(int row, Tile tile, int tilesNumber) {
+			var totalAvailable = Pattern[row].Count(x => x == Tile.None);
+			var totalFloor = tilesNumber - totalAvailable;
 			if (totalFloor > 0) {
-				Floor.AddRange(Enumerable.Repeat(gem, totalFloor));
+				Floor.AddRange(Enumerable.Repeat(tile, totalFloor));
 			}
-			for (var i = 0; i < Source[row].Length; i++) {
-				if (Source[row][i] != Gem.None) {
+			for (var i = 0; i < Pattern[row].Length; i++) {
+				if (Pattern[row][i] != Tile.None) {
 					continue;
 				}
-				Source[row][i] = gem;
+				Pattern[row][i] = tile;
 			}
 		}
 
-		public void AddToFloor(Gem gem, int gemsNumber) => Floor.AddRange(Enumerable.Repeat(gem, gemsNumber));
+		public void AddToFloor(Tile gem, int gemsNumber) => Floor.AddRange(Enumerable.Repeat(gem, gemsNumber));
 
 		/// <summary>
-		/// Returns available source plates to place gems depending on colour.
+		/// Returns available patterns plates to place tiles depending on colour.
 		/// </summary>
-		public List<(int row, Gem color, int count)> GetAvailableSources() {
-			var result = new List<(int, Gem, int)>();
-			var sourceGems = Source.Select(x => x.FirstOrDefault(g => g != Gem.None)).ToList();
+		public List<(int row, Tile color, int count)> GetAvailablePatterns() {
+			var result = new List<(int, Tile, int)>();
+			var sourceGems = Pattern.Select(x => x.FirstOrDefault(g => g != Tile.None)).ToList();
 			for (var i = 0; i < 5; i++) {
-				result.Add((i, sourceGems[i], Source[i].Count(x => x == Gem.None)));
+				result.Add((i, sourceGems[i], Pattern[i].Count(x => x == Tile.None)));
 			}
+			/// TODO: Add the <see cref="Wall"/> check.
 			return result;
 		}
 	}
