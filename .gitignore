@@ -4,3 +4,4 @@ AzulAnalyzer/obj/*
 AzulAnalyzer/*/.vs/*
 AzulAnalyzer/*/bin/*
 AzulAnalyzer/*/obj/*
+/AzulAnalyzer/*/*.csproj.user
