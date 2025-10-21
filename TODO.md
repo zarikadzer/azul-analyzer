@@ -2,12 +2,6 @@
 
 ## 1. Scoring System Implementation
 
-### Task 1.1: Implement Pattern Line Completion Detection
-- Add method to Board.cs to check if a pattern line is complete
-- Create logic to identify which pattern lines have the required number of tiles
-- Validate that all tiles in the line are the same color
-- Return list of completed pattern lines for scoring
-
 ### Task 1.2: Implement Pattern-to-Wall Tile Transfer
 - Create new step class `TransferToWall.cs` in Steps folder
 - Extend BaseStep abstract class
@@ -345,6 +339,20 @@
 - Section 6: Code Quality and Documentation (Tasks 6.3-6.5)
 - Section 7: Performance Optimization (All tasks)
 - Section 8: Additional Features (All tasks)
+
+---
+
+## Implemented Tasks
+
+### Task 1.1: Implement Pattern Line Completion Detection ✓
+- **Status:** IMPLEMENTED
+- **Implemented:** 2025-10-21
+- **Details:**
+  - Added `IsPatternLineComplete(int row)` method to Board.cs to check if a pattern line is complete
+  - Created `GetCompletedPatternLines()` method to identify which pattern lines have the required number of tiles
+  - Validates that all tiles in the line are the same color
+  - Returns list of completed pattern lines for scoring
+  - Implementation location: AzulAnalyzer.Core/Elements/Board.cs:63-102
 
 ---
 
